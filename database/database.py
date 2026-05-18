@@ -9,8 +9,8 @@ load_dotenv()
 
 
 SQLALCHEMY_DATABASE_URL = (
-    f"postgresql://{ os.getenv("USER")}:{os.getenv("PASSWORD")}"
-    f"@{os.getenv("HOST")}:{os.getenv("POST")}/{os.getenv("DATABASE")}"
+    f"postgresql://{os.getenv('USER')}:{os.getenv('PASSWORD')}"
+    f"@{os.getenv('HOST')}:{os.getenv('PORT')}/{os.getenv('DATABASE')}"
 )
 
 for _ in range(10):
