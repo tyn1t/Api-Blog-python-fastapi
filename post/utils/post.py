@@ -51,10 +51,8 @@ async def create_upload_img(slug: str = None, file: UploadFile | None = None):
     ALLOWED_EXTENSIONS = {"jpg", "jpeg", "png", "webp"}
     
     print(f"Received file: {file.filename}")
-
     
     ext = file.filename.split(".")[-1].lower()
-    
     
     if ext not in ALLOWED_EXTENSIONS:
         raise HTTPException(status_code=400, detail="Tipo de arquivo inválido")

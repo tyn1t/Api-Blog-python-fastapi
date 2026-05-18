@@ -10,12 +10,12 @@ from auth.auth import HashPassword, create_access_token, create_refresh_token, s
 from database.database import get_db
 
 from users.models.users import User
-from users.schemas.users import CadastroSchemas, LoginResponse, LoginSchemas, RefreshTokenSchemas
+from users.schemas.users import CadastroMessageResponses, CadastroSchemas, LoginResponse, LoginSchemas, RefreshTokenSchemas
 
 router = APIRouter(prefix="/v1/auth", tags=["Auth"])
 
 
-@router.post("/register", status_code=201)
+@router.post("/register", response_model=CadastroMessageResponses, status_code=status.HTTP_201_CREATED)
 def register(credentials: CadastroSchemas, db: Session = Depends(get_db)):
     try:
         user_exixteng = db.query(User.email).filter(User.email == credentials.email).first()

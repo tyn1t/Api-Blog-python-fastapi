@@ -1,20 +1,16 @@
 import time
+import os
+from dotenv import load_dotenv
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
+load_dotenv()
 
-DB_CONFIG = {
-    "host": "db",
-    "database": "blogdb",
-    "user": "postgres",
-    "password":"124578",
-    "port": "5432",
-}
 
 SQLALCHEMY_DATABASE_URL = (
-    f"postgresql://{DB_CONFIG['user']}:{DB_CONFIG['password']}"
-    f"@{DB_CONFIG['host']}:{DB_CONFIG['port']}/{DB_CONFIG['database']}"
+    f"postgresql://{ os.getenv("USER")}:{os.getenv("PASSWORD")}"
+    f"@{os.getenv("HOST")}:{os.getenv("POST")}/{os.getenv("DATABASE")}"
 )
 
 for _ in range(10):

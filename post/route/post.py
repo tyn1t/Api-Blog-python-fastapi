@@ -145,7 +145,6 @@ def post_update(
     return {"message": "Post atualizado com sucesso"}
 
 
-
 @router.delete("/{slug}")
 def delete_post(
         slug: str, 
