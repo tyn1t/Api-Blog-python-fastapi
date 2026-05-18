@@ -21,6 +21,7 @@ app = FastAPI()
 @app.get("/")
 async def hello_test(): 
     return {"MENSSAGEM":"oLA MUNDO"}
+
 @app.get("/info")
 def set_domin():
     return {"domain": settings.api_domain, "url": settings.base_url}
