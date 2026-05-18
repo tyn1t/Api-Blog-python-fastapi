@@ -34,8 +34,6 @@ app.include_router(leads.router)
 # teste post 
 app.include_router(post_teste.router)
 
-from fastapi.middleware.cors import CORSMiddleware
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  
