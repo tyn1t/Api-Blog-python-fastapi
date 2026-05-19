@@ -13,10 +13,13 @@ from database.database import Base, engine
 from fastapi.middleware.cors import CORSMiddleware
 
 
-Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+
+@app.on_event("startup")
+def startup():
+    Base.metadata.create_all(bind=engine)
 
 @app.get("/")
 async def hello_test(): 
