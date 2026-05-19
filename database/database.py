@@ -8,14 +8,13 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 load_dotenv()
 
 
-SQLALCHEMY_DATABASE_URL = (
-    f"postgresql://{os.getenv('USER')}:{os.getenv('PASSWORD')}"
-    f"@{os.getenv('HOST')}:{os.getenv('PORT')}/{os.getenv('DATABASE')}"
-)
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+
 
 for _ in range(10):
     try:
-        engine = create_engine(SQLALCHEMY_DATABASE_URL)
+        engine = create_engine(DATABASE_URL)
         conn = engine.connect()
         conn.close()
         break
