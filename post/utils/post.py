@@ -70,5 +70,5 @@ async def create_upload_img(slug: str = None, file: UploadFile | None = None):
         content = await file.read()
         f.write(content)
     
-    return f"/uploads/{post_slug}/{file_name}"
+    return f"uploads/{post_slug}/{file_name}"
 

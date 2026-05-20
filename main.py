@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 
 from config import settings
@@ -10,12 +12,13 @@ from post.route import post_teste
 
 from database.database import Base, engine
 
-from fastapi.middleware.cors import CORSMiddleware
-
+from pathlib import Path
 
 
 app = FastAPI()
 
+Base_DIR = Path(__file__).resolve().parent
+UPLOAD_DIR = Base_DIR / settings.upload_dir
 
 @app.on_event("startup")
 def startup():
@@ -27,12 +30,18 @@ async def hello_test():
 
 @app.get("/info")
 def set_domin():
-    return {"domain": settings.api_domain, "url": settings.base_url}
+    return {"domain": settings.api_domain, "url": settings.base_url, "path-img": UPLOAD_DIR}
 
 app.include_router(users.router)
 app.include_router(post.router)
 app.include_router(leads.router)
 
+# img 
+app.mount(
+    "/uploads",
+    StaticFiles(directory=UPLOAD_DIR),
+    name="uploads"
+)
 
 # teste post 
 app.include_router(post_teste.router)

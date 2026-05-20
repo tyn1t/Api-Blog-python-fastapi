@@ -1,6 +1,11 @@
+import os
+
+from dotenv import load_dotenv
+
+from sqlalchemy.orm import Session
+
 from fastapi import APIRouter, Depends, File, HTTPException
 from fastapi.datastructures import UploadFile
-from sqlalchemy.orm import Session
 
 from auth.auth import get_current_user
 from database.database import get_db
@@ -11,8 +16,14 @@ from post.schemas.post import PostCreate, PostCreateResponse, PostResponse, Sect
 from post.utils.post import create_upload_img, unique_slug, generate_slug
 from users.models.users import User
 
+load_dotenv()
+
 router = APIRouter(prefix="/posts", tags=["posts"])
 
+
+
+
+BASE_URL = os.getenv("BASE_URL")
 
 @router.post("/", response_model=PostCreateResponse)
 def create_post(
@@ -52,7 +63,7 @@ def create_post(
 
         return {
             "message": "Post criado com sections",
-            "url": f"post/{slug}"
+            "url": f"{BASE_URL}/post/{slug}"
         }
 
     except Exception as e:
@@ -180,5 +191,7 @@ async def upload_img(
         )
 
     img_url = await create_upload_img(slug=slug, file=file_img)
+    
+    path_url = f"{BASE_URL}{img_url}"
 
-    return {"img": img_url}
+    return {"img": path_url}
