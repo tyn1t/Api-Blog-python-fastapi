@@ -23,10 +23,11 @@ class Settings(BaseSettings):
     GOOGLE_CLIENT_SECRET: Optional[str] = None
     
     UPLOAD_DIR: str = "uploads"
-
+    
+    REDIRECT_URI: Optional[str] = None
 
   
-    model_config = SettingsConfigDict(env_file=".env")
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
         
 
