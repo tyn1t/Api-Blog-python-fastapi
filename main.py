@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 
-from config import settings
+from config import Settings
 
 from users.route import users
 from gmail.router import envia
@@ -22,8 +22,10 @@ from pathlib import Path
 
 app = FastAPI()
 
+settings = Settings()
+
 Base_DIR = Path(__file__).resolve().parent
-UPLOAD_DIR = Base_DIR / settings.upload_dir
+UPLOAD_DIR = Base_DIR / settings.UPLOAD_DIR
 
 @app.on_event("startup")
 def startup():

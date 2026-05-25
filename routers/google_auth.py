@@ -34,7 +34,12 @@ oauth.register(
 # Redirect user to Google for authentication
 @router.get("/auth/google")
 async def auth_google(request: Request):
-    return await oauth.google.authorize_redirect(request, redirect_uri="http://localhost:8060/auth/google/callback")
+    redirect_uri = os.environ.get("REDIRECT_URI")
+
+
+    return await oauth.google.authorize_redirect(
+        request, redirect_uri=redirect_uri
+    )
 
 
 # Handle the OAuth callback from Google

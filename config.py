@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic_settings import BaseSettings, SettingsConfigDict 
 
 class Settings(BaseSettings):
@@ -8,14 +10,27 @@ class Settings(BaseSettings):
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
     
-    GOOGLE_CLIENT_ID: str = ""
-    GOOGLE_CLIENT_SECRET: str = ""
+    HOST: str
+    DATABASE: str
+    USER: str
+    PASSWORD: str
+    PORT: int
 
-    upload_dir: str
+    DATABASE_URL: str
+
+    SERVER_SMTP: str
+    PORT_SMTP: int
+    USER_SMTP: str
+    PASSWORD_SMTP: str
+
+    GOOGLE_CLIENT_ID: Optional[str] = None
+    GOOGLE_CLIENT_SECRET: Optional[str] = None
+    
+    UPLOAD_DIR: str = "uploads"
+
 
   
     model_config = SettingsConfigDict(env_file=".env")
 
         
 
-settings = Settings()
