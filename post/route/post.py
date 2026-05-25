@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 from sqlalchemy.orm import Session
 
-from fastapi import APIRouter, Depends, File, HTTPException
+from fastapi import APIRouter, Depends, File, HTTPException, Query
 from fastapi.datastructures import UploadFile
 
 from auth.auth import get_current_user
@@ -75,8 +75,12 @@ def create_post(
         
         
 @router.get("/", response_model=list[PostResponse])
-def get_all_posts(db: Session = Depends(get_db)):
-    posts = db.query(Post).all()
+def get_all_posts(
+        limit: int = Query(default=10, ge=1, le=100), 
+        offset: int = Query(default=0, ge=0),
+        db: Session = Depends(get_db)
+    ):
+    posts = db.query(Post).order_by(Post.id.desc()).offset(offset).limit(limit).all()
     
     
     return [{

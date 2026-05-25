@@ -3,7 +3,7 @@ import uuid
 from dotenv import load_dotenv
 from passlib.context import CryptContext
 
-from datetime import datetime, timedelta, UTC
+from datetime import datetime, timedelta, UTC, timezone
 from jose import JWTError, jwt
 
 from fastapi import Depends, HTTPException, Security
@@ -34,15 +34,19 @@ class HashPassword:
         return cls.pwd_context.verify(password, hashed)
 
 
-def create_access_token(data: dict):
+def create_access_token(data: dict, expires_delta: timedelta = None, auth_method="password"):
     to_encode = data.copy()
-
-    expire = datetime.now(UTC) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+     
+    if expires_delta:
+        expire = datetime.now(timezone.utc) + expires_delta
+    else:
+        expire = datetime.now(timezone.utc) + timedelta(minutes=15)
 
     to_encode.update({
         "exp": expire,
         "type": "access",
-        "jti": str(uuid.uuid4())
+        "jti": str(uuid.uuid4()),
+        "auth_method": auth_method
     })
 
     return jwt.encode(

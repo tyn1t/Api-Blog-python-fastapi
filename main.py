@@ -1,3 +1,4 @@
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -5,10 +6,14 @@ from fastapi.staticfiles import StaticFiles
 
 from config import settings
 
-from users.route import users 
+from users.route import users
+from gmail.router import envia
 from post.route import post
 from leads.route import leads
 from post.route import post_teste
+
+
+from routers import google_auth
 
 from database.database import Base, engine
 
@@ -35,6 +40,9 @@ def set_domin():
 app.include_router(users.router)
 app.include_router(post.router)
 app.include_router(leads.router)
+app.include_router(envia.router)
+app.include_router(google_auth.router)
+
 
 # img 
 app.mount(
