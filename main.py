@@ -1,4 +1,6 @@
 
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -11,13 +13,13 @@ from gmail.router import envia
 from post.route import post
 from leads.route import leads
 from post.route import post_teste
-
-
 from routers import google_auth
 
 from database.database import Base, engine
 
 from pathlib import Path
+
+from starlette.middleware.sessions import SessionMiddleware
 
 
 app = FastAPI()
@@ -55,6 +57,11 @@ app.mount(
 
 # teste post 
 app.include_router(post_teste.router)
+
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=os.getenv("SECRET_KEY")
+)
 
 app.add_middleware(
     CORSMiddleware,
