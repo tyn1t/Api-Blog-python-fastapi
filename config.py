@@ -10,11 +10,7 @@ class Settings(BaseSettings):
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
     
-    HOST: str
-    DATABASE: str
-    USER: str
-    PASSWORD: str
-    PORT: int
+
 
     DATABASE_URL: str
 
