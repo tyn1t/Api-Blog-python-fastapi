@@ -8,8 +8,8 @@ class Settings(BaseSettings):
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
     
-    GOOGLE_CLIENT_ID: str
-    GOOGLE_CLIENT_SECRET: str
+    GOOGLE_CLIENT_ID: str = ""
+    GOOGLE_CLIENT_SECRET: str = ""
 
     upload_dir: str
 
