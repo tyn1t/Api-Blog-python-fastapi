@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 
-from backend.gmail.enviar_gmail import send_email
+from gmail.enviar_gmail import send_email
 from gmail.router.tasks import send_email_task, app
 from gmail.schemas.enviar import EmailSchema
 
