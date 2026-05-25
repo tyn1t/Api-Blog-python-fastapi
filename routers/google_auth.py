@@ -6,7 +6,7 @@ from authlib.integrations.starlette_client import OAuth
 import os
 from auth.auth import  create_access_token
 from dotenv import load_dotenv
-from utils.config import Settings
+from config import Settings
 from functools import lru_cache
 
 load_dotenv()
